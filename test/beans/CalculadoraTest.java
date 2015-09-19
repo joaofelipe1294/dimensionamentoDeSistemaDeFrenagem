@@ -23,11 +23,17 @@ public class CalculadoraTest {
         veiculoTeste = new Veiculo();
         veiculoTeste.setMassaVeiculo(230);
         veiculoTeste.setMassaPiloto(70);
+        calculadora.setVeiculo(veiculoTeste);
     }
 
     @Test
     public void massaTotalSistema(){
-        assertEquals(300, calculadora.massaTotalDoSistema(veiculoTeste) , 0.001);
+        assertEquals(300, calculadora.massaTotalDoSistema() , 0.001);
+    }
+    
+    @Test
+    public void pesoTotalSistema(){
+        assertEquals(2943, calculadora.pesoTotalDoSistema() , 0.001);
     }
     
     

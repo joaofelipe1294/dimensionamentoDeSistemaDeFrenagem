@@ -10,7 +10,21 @@ package beans;
  * @author joaofelipelopes
  */
 public class Calculadora {
-    public double massaTotalDoSistema(Veiculo veiculo){
+    private Veiculo veiculo;
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
+    
+    public double massaTotalDoSistema(){
         return veiculo.getMassaVeiculo() + veiculo.getMassaPiloto();
+    }
+    
+    public double pesoTotalDoSistema(){
+        return massaTotalDoSistema() * veiculo.ACELERACAO_GRAVITACIONAL;
     }
 }

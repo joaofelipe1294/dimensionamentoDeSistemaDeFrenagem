@@ -28,7 +28,7 @@ public class Veiculo {
     private double distanciaFrenagem;
     private double velocidadeMaxima;
     private double tamanhoPneu;
-    private final double ACELERACAO_GRAVITACIONAL = 9.81;
+    protected final double ACELERACAO_GRAVITACIONAL = 9.81;
     private CoeficienteAtrito atritoSolo;
 
     public long getId() {
