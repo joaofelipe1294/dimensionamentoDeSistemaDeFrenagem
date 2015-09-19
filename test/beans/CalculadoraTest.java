@@ -25,6 +25,8 @@ public class CalculadoraTest {
         veiculoTeste.setMassaPiloto(70);
         veiculoTeste.setDiametroEmboloDianteiro(0.03);
         veiculoTeste.setDiametroEmboloTraseiro(0.03);
+        veiculoTeste.setVelocidadeMaxima(15.3);
+        veiculoTeste.setDistanciaFrenagem(12);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -47,6 +49,11 @@ public class CalculadoraTest {
     @Test
     public void areaEmboloPincaTraseira(){
         assertEquals(0.000706858, calculadora.areaDoEmboloPincaTraseira() , 0.000000001);
+    }
+    
+    @Test
+    public void acelerecaoDoSistemaPelaEquacaoDeTorriecelli(){
+        assertEquals(-9.75375, calculadora.acelerecaoDoSistemaPelaEquacaoDeTorriecelli() , 0.00001);
     }
     
 }

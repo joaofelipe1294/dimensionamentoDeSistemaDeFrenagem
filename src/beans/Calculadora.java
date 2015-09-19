@@ -36,4 +36,8 @@ public class Calculadora {
         return (Math.pow(veiculo.getDiametroEmboloTraseiro(), 2) * Math.PI) / 4;
     }
     
+    public double acelerecaoDoSistemaPelaEquacaoDeTorriecelli(){
+        return -1 * (Math.pow(veiculo.getVelocidadeMaxima(), 2) / (2 * veiculo.getDistanciaFrenagem()));
+    }
+    
 }
