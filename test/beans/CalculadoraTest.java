@@ -39,6 +39,7 @@ public class CalculadoraTest {
         veiculoTeste.setNumeroEmbolosDianteiro(2);
         veiculoTeste.setRaioPneuTraseiro(0.27);
         veiculoTeste.setRaioDiscoTraseiro(0.11);
+        veiculoTeste.setNumeroEmbolosTraseiro(2);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -131,6 +132,11 @@ public class CalculadoraTest {
     @Test
     public void forcaAplicadaPastilhaTraseira(){
         assertEquals(413.6487097, calculadora.forcaAplicadaPastilhaTraseira() , 0.0000001);
+    }
+    
+    @Test
+    public void pressaoTransmitidaAoFluidoPelaTraseira(){
+        assertEquals(292596.6082, calculadora.pressaoTransmitidaAoFluidoPelaTraseira() , 0.0001);
     }
     
 }

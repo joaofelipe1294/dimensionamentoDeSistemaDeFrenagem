@@ -97,4 +97,8 @@ public class Calculadora {
         return forcaAplicadaDiscoTraseiro() * veiculo.getAtritoDisco();
     }
     
+    public double pressaoTransmitidaAoFluidoPelaTraseira(){
+        return forcaAplicadaPastilhaTraseira() / (areaDoEmboloPincaTraseira() * veiculo.getNumeroEmbolosTraseiro());
+    }
+    
 }
