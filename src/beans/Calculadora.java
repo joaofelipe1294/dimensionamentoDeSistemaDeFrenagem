@@ -85,4 +85,8 @@ public class Calculadora {
         return pesoBaixaVelocidadeTraseira() * veiculo.getAtritoSolo().getCoeficienteDeAtritoComSolo();
     }
     
+    public double momentoGeradoPelaForcaDeFrenagemTraseira(){
+        return forcaResultanteDaRodaTraseira() * veiculo.getRaioPneuTraseiro();
+    }
+    
 }

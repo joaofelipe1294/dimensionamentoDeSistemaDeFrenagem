@@ -37,6 +37,7 @@ public class CalculadoraTest {
         veiculoTeste.setRaioDiscoDianteiro(0.085);
         veiculoTeste.setAtritoDisco(0.4);
         veiculoTeste.setNumeroEmbolosDianteiro(2);
+        veiculoTeste.setRaioPneuTraseiro(0.27);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -114,6 +115,11 @@ public class CalculadoraTest {
     @Test
     public void forcaResultanteDaRodaTraseira(){
         assertEquals(421.308871, calculadora.forcaResultanteDaRodaTraseira() , 0.000001);
+    }
+    
+    @Test
+    public void momentoGeradoPelaForcaDeFrenagemTraseira(){
+        assertEquals(113.7533952, calculadora.momentoGeradoPelaForcaDeFrenagemTraseira() , 0.0000001);
     }
     
 }
