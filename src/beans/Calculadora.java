@@ -60,4 +60,9 @@ public class Calculadora {
         double s2 = veiculo.ACELERACAO_GRAVITACIONAL * veiculo.getDistanciaEntreEixos();
         return pesoEstaticoTraseira() + (s1 / s2);
     }
+    
+    public double forcaResultanteRodaDianteira(){
+        return pesoBaixaVelocidadeDianteira() * veiculo.getAtritoSolo().getCoeficienteDeAtritoComSolo();
+    }
+    
 }

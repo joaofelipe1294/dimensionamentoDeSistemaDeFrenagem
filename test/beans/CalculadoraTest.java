@@ -5,6 +5,7 @@
  */
 package beans;
 
+import dao.CoeficienteAtritoDAO;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -31,6 +32,7 @@ public class CalculadoraTest {
         veiculoTeste.setDistanciaEntreEixos(1.55);
         veiculoTeste.setDistanciaCgDianteira(1);
         veiculoTeste.setAlturaCgEmRelacaoSuperficie(0.6);
+        veiculoTeste.setAtritoSolo(new CoeficienteAtritoDAO().pegaCoeficiente(new CoeficienteAtrito("Terra úmida")));
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -78,6 +80,11 @@ public class CalculadoraTest {
     @Test
     public void pesoParaBaixaVelocidadeTraseira(){
         assertEquals(766.016129, calculadora.pesoBaixaVelocidadeTraseira() , 0.0000001);
+    }
+    
+    @Test
+    public void forcaResultanteRodaDianteira(){
+        assertEquals(1197.34, calculadora.forcaResultanteRodaDianteira() , 0.01);
     }
     
 }

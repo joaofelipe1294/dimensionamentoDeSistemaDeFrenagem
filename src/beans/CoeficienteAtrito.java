@@ -14,6 +14,15 @@ public class CoeficienteAtrito {
     private String terreno;
     private double coeficienteDeAtritoComSolo;
 
+    public CoeficienteAtrito(String terreno) {
+        this.terreno = terreno;
+    }
+
+    public CoeficienteAtrito() {
+    }
+
+    
+    
     public String getTerreno() {
         return terreno;
     }
