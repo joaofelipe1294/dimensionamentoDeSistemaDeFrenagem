@@ -30,6 +30,7 @@ public class CalculadoraTest {
         veiculoTeste.setDistanciaCgTraseira(0.55);
         veiculoTeste.setDistanciaEntreEixos(1.55);
         veiculoTeste.setDistanciaCgDianteira(1);
+        veiculoTeste.setAlturaCgEmRelacaoSuperficie(0.6);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -65,8 +66,13 @@ public class CalculadoraTest {
     }
     
     @Test
-    public void pesoEstaticoTraseiraO(){
+    public void pesoEstaticoTraseira(){
         assertEquals(4561.65, calculadora.pesoEstaticoTraseira() , 0.01);
+    }
+    
+    @Test
+    public void pesoParaBaixaVelcidadeDianteira(){
+        assertEquals(9426.6, calculadora.pesoBaixaVelocidadeDianteira() , 0.1);
     }
     
 }

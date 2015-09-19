@@ -18,6 +18,7 @@ public class Veiculo {
     private double massaPiloto;
     private double raioPneuDianteiro;
     private double raioPneuTraseiro;
+    private double alturaCgEmRelacaoSuperficie;
     private double atritoDisco;
     private double raioDiscoDianteiro;
     private double raioDiscoTraseiro;
@@ -101,6 +102,14 @@ public class Veiculo {
 
     public void setAtritoDisco(double atritoDisco) {
         this.atritoDisco = atritoDisco;
+    }
+
+    public double getAlturaCgEmRelacaoSuperficie() {
+        return alturaCgEmRelacaoSuperficie;
+    }
+
+    public void setAlturaCgEmRelacaoSuperficie(double alturaCgEmRelacaoSuperficie) {
+        this.alturaCgEmRelacaoSuperficie = alturaCgEmRelacaoSuperficie;
     }
 
     public double getRaioDiscoDianteiro() {
