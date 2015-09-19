@@ -40,4 +40,8 @@ public class Calculadora {
         return -1 * (Math.pow(veiculo.getVelocidadeMaxima(), 2) / (2 * veiculo.getDistanciaFrenagem()));
     }
     
+    public double pesoEstaticoDianteira(){
+        return pesoTotalDoSistema() / (veiculo.getDistanciaCgDianteira() / veiculo.getDistanciaEntreEixos());
+    }
+    
 }

@@ -27,6 +27,8 @@ public class CalculadoraTest {
         veiculoTeste.setDiametroEmboloTraseiro(0.03);
         veiculoTeste.setVelocidadeMaxima(15.3);
         veiculoTeste.setDistanciaFrenagem(12);
+        veiculoTeste.setDistanciaCgDianteira(0.55);
+        veiculoTeste.setDistanciaEntreEixos(1.55);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -54,6 +56,11 @@ public class CalculadoraTest {
     @Test
     public void acelerecaoDoSistemaPelaEquacaoDeTorriecelli(){
         assertEquals(-9.75375, calculadora.acelerecaoDoSistemaPelaEquacaoDeTorriecelli() , 0.00001);
+    }
+    
+    @Test
+    public void pesoEstaticoDianteira(){
+        assertEquals(8293.91, calculadora.pesoEstaticoDianteira() , 0.001);
     }
     
 }
