@@ -41,6 +41,10 @@ public class Calculadora {
     }
     
     public double pesoEstaticoDianteira(){
+        return pesoTotalDoSistema() / (veiculo.getDistanciaCgTraseira() / veiculo.getDistanciaEntreEixos());
+    }
+    
+    public double pesoEstaticoTraseira(){
         return pesoTotalDoSistema() / (veiculo.getDistanciaCgDianteira() / veiculo.getDistanciaEntreEixos());
     }
     

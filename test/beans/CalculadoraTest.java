@@ -27,8 +27,9 @@ public class CalculadoraTest {
         veiculoTeste.setDiametroEmboloTraseiro(0.03);
         veiculoTeste.setVelocidadeMaxima(15.3);
         veiculoTeste.setDistanciaFrenagem(12);
-        veiculoTeste.setDistanciaCgDianteira(0.55);
+        veiculoTeste.setDistanciaCgTraseira(0.55);
         veiculoTeste.setDistanciaEntreEixos(1.55);
+        veiculoTeste.setDistanciaCgDianteira(1);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -61,6 +62,11 @@ public class CalculadoraTest {
     @Test
     public void pesoEstaticoDianteira(){
         assertEquals(8293.91, calculadora.pesoEstaticoDianteira() , 0.001);
+    }
+    
+    @Test
+    public void pesoEstaticoTraseiraO(){
+        assertEquals(4561.65, calculadora.pesoEstaticoTraseira() , 0.01);
     }
     
 }
