@@ -89,4 +89,8 @@ public class Calculadora {
         return forcaResultanteDaRodaTraseira() * veiculo.getRaioPneuTraseiro();
     }
     
+    public double forcaAplicadaDiscoTraseiro(){
+        return momentoGeradoPelaForcaDeFrenagemTraseira() / veiculo.getRaioDiscoTraseiro();
+    }
+    
 }
