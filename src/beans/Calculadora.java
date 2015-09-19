@@ -101,4 +101,8 @@ public class Calculadora {
         return forcaAplicadaPastilhaTraseira() / (areaDoEmboloPincaTraseira() * veiculo.getNumeroEmbolosTraseiro());
     }
     
+    public double areaDoEmboloCilindroMestre(){
+        return (Math.PI * Math.pow(veiculo.getDiametroEmboloCilindroMestre() , 2)) / 4;
+    }
+    
 }

@@ -40,6 +40,7 @@ public class CalculadoraTest {
         veiculoTeste.setRaioPneuTraseiro(0.27);
         veiculoTeste.setRaioDiscoTraseiro(0.11);
         veiculoTeste.setNumeroEmbolosTraseiro(2);
+        veiculoTeste.setDiametroEmboloCilindroMestre(0.0135);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -137,6 +138,11 @@ public class CalculadoraTest {
     @Test
     public void pressaoTransmitidaAoFluidoPelaTraseira(){
         assertEquals(292596.6082, calculadora.pressaoTransmitidaAoFluidoPelaTraseira() , 0.0001);
+    }
+    
+    @Test
+    public void areaDoEmboloCilindroMestre(){
+        assertEquals(0.000143, calculadora.areaDoEmboloCilindroMestre() , 0.000001);
     }
     
 }

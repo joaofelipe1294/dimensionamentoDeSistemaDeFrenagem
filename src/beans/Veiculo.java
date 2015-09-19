@@ -31,7 +31,9 @@ public class Veiculo {
     private double tamanhoPneu;
     protected final double ACELERACAO_GRAVITACIONAL = 9.81;
     private CoeficienteAtrito atritoSolo;
-
+    private double relacaoTamanhoPedal;
+    private double diametroEmboloCilindroMestre;
+    
     public long getId() {
         return id;
     }
@@ -192,5 +194,20 @@ public class Veiculo {
         this.atritoSolo = atritoSolo;
     }
 
+    public double getRelacaoTamanhoPedal() {
+        return relacaoTamanhoPedal;
+    }
+
+    public void setRelacaoTamanhoPedal(double relacaoTamanhoPedal) {
+        this.relacaoTamanhoPedal = relacaoTamanhoPedal;
+    }
+
+    public double getDiametroEmboloCilindroMestre() {
+        return diametroEmboloCilindroMestre;
+    }
+
+    public void setDiametroEmboloCilindroMestre(double diametroEmboloCilindroMestre) {
+        this.diametroEmboloCilindroMestre = diametroEmboloCilindroMestre;
+    }
     
 }
