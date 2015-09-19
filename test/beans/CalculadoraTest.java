@@ -33,6 +33,7 @@ public class CalculadoraTest {
         veiculoTeste.setDistanciaCgDianteira(1);
         veiculoTeste.setAlturaCgEmRelacaoSuperficie(0.6);
         veiculoTeste.setAtritoSolo(new CoeficienteAtritoDAO().pegaCoeficiente(new CoeficienteAtrito("Terra úmida")));
+        veiculoTeste.setRaioPneuDianteiro(0.28);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -85,6 +86,11 @@ public class CalculadoraTest {
     @Test
     public void forcaResultanteRodaDianteira(){
         assertEquals(1197.34, calculadora.forcaResultanteRodaDianteira() , 0.01);
+    }
+    
+    @Test
+    public void momentoGeradoPelaForcaDeFrenagemDianteira(){
+        assertEquals(335.2555161, calculadora.momentoGeradoPelaForcaDeFrenagemDianteira() , 0.0000001);
     }
     
 }
