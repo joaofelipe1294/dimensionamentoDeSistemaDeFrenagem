@@ -53,5 +53,11 @@ public class Calculadora {
         double s2 = veiculo.ACELERACAO_GRAVITACIONAL * veiculo.getDistanciaEntreEixos();
         return pesoEstaticoDianteira() - (s1 / s2);
     }
+
     
+    public double pesoBaixaVelocidadeTraseira(){
+        double s1 = pesoTotalDoSistema() * acelerecaoDoSistemaPelaEquacaoDeTorriecelli() * veiculo.getAlturaCgEmRelacaoSuperficie();
+        double s2 = veiculo.ACELERACAO_GRAVITACIONAL * veiculo.getDistanciaEntreEixos();
+        return pesoEstaticoTraseira() + (s1 / s2);
+    }
 }

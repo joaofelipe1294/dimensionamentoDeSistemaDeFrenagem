@@ -75,4 +75,9 @@ public class CalculadoraTest {
         assertEquals(9426.6, calculadora.pesoBaixaVelocidadeDianteira() , 0.1);
     }
     
+    @Test
+    public void pesoParaBaixaVelocidadeTraseira(){
+        assertEquals(3428.96, calculadora.pesoBaixaVelocidadeTraseira() , 0.01);
+    }
+    
 }
