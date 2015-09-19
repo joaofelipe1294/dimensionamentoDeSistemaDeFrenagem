@@ -77,4 +77,8 @@ public class Calculadora {
         return forcaAplicadaDiscoDianteiro() * veiculo.getAtritoDisco();
     }
     
+    public double pressaoTransmitidaAoFluidoPelaDianteira(){
+        return forcaAplicadaPastilhaDianteira() / (areaDoEmboloPincaDianteira() * veiculo.getNumeroEmbolosDianteiro());
+    }
+    
 }
