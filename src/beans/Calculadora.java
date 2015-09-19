@@ -69,4 +69,8 @@ public class Calculadora {
         return forcaResultanteRodaDianteira() * veiculo.getRaioPneuDianteiro();
     }
     
+    public double forcaAplicadaDiscoDianteiro(){
+        return momentoGeradoPelaForcaDeFrenagemDianteira() / veiculo.getRaioDiscoDianteiro();
+    }
+    
 }
