@@ -62,22 +62,22 @@ public class CalculadoraTest {
     
     @Test
     public void pesoEstaticoDianteira(){
-        assertEquals(8293.91, calculadora.pesoEstaticoDianteira() , 0.001);
+        assertEquals(1044.29, calculadora.pesoEstaticoDianteira() , 0.001);
     }
     
     @Test
     public void pesoEstaticoTraseira(){
-        assertEquals(4561.65, calculadora.pesoEstaticoTraseira() , 0.01);
+        assertEquals(1898.709677, calculadora.pesoEstaticoTraseira() , 0.000001);
     }
     
     @Test
     public void pesoParaBaixaVelcidadeDianteira(){
-        assertEquals(9426.6, calculadora.pesoBaixaVelocidadeDianteira() , 0.1);
+        assertEquals(2176.983871, calculadora.pesoBaixaVelocidadeDianteira() , 0.0000001);
     }
     
     @Test
     public void pesoParaBaixaVelocidadeTraseira(){
-        assertEquals(3428.96, calculadora.pesoBaixaVelocidadeTraseira() , 0.01);
+        assertEquals(766.016129, calculadora.pesoBaixaVelocidadeTraseira() , 0.0000001);
     }
     
 }
