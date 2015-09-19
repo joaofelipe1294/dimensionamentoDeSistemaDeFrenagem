@@ -111,4 +111,9 @@ public class CalculadoraTest {
         assertEquals(1115975.374, calculadora.pressaoTransmitidaAoFluidoPelaDianteira() , 0.001);
     }
     
+    @Test
+    public void forcaResultanteDaRodaTraseira(){
+        assertEquals(421.308871, calculadora.forcaResultanteDaRodaTraseira() , 0.000001);
+    }
+    
 }

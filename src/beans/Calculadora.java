@@ -81,4 +81,8 @@ public class Calculadora {
         return forcaAplicadaPastilhaDianteira() / (areaDoEmboloPincaDianteira() * veiculo.getNumeroEmbolosDianteiro());
     }
     
+    public double forcaResultanteDaRodaTraseira(){
+        return pesoBaixaVelocidadeTraseira() * veiculo.getAtritoSolo().getCoeficienteDeAtritoComSolo();
+    }
+    
 }
