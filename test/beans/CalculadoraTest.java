@@ -128,4 +128,9 @@ public class CalculadoraTest {
         assertEquals(1034.121774, calculadora.forcaAplicadaDiscoTraseiro() , 0.000001);
     }
     
+    @Test
+    public void forcaAplicadaPastilhaTraseira(){
+        assertEquals(413.6487097, calculadora.forcaAplicadaPastilhaTraseira() , 0.0000001);
+    }
+    
 }

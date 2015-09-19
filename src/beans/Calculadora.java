@@ -93,4 +93,8 @@ public class Calculadora {
         return momentoGeradoPelaForcaDeFrenagemTraseira() / veiculo.getRaioDiscoTraseiro();
     }
     
+    public double forcaAplicadaPastilhaTraseira(){
+        return forcaAplicadaDiscoTraseiro() * veiculo.getAtritoDisco();
+    }
+    
 }
