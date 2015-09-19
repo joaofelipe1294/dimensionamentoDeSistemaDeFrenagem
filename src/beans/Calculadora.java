@@ -32,4 +32,8 @@ public class Calculadora {
         return (Math.pow(veiculo.getDiametroEmboloDianteiro(), 2) * Math.PI) / 4;
     }
     
+    public double areaDoEmboloPincaTraseira(){
+        return (Math.pow(veiculo.getDiametroEmboloTraseiro(), 2) * Math.PI) / 4;
+    }
+    
 }

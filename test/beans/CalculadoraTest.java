@@ -24,6 +24,7 @@ public class CalculadoraTest {
         veiculoTeste.setMassaVeiculo(230);
         veiculoTeste.setMassaPiloto(70);
         veiculoTeste.setDiametroEmboloDianteiro(0.03);
+        veiculoTeste.setDiametroEmboloTraseiro(0.03);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -41,6 +42,11 @@ public class CalculadoraTest {
     @Test
     public void areaEmboloPincaDianteira(){
         assertEquals(0.000706858, calculadora.areaDoEmboloPincaDianteira() , 0.000000001);
+    }
+    
+    @Test
+    public void areaEmboloPincaTraseira(){
+        assertEquals(0.000706858, calculadora.areaDoEmboloPincaTraseira() , 0.000000001);
     }
     
 }
