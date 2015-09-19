@@ -35,6 +35,7 @@ public class CalculadoraTest {
         veiculoTeste.setAtritoSolo(new CoeficienteAtritoDAO().pegaCoeficiente(new CoeficienteAtrito("Terra úmida")));
         veiculoTeste.setRaioPneuDianteiro(0.28);
         veiculoTeste.setRaioDiscoDianteiro(0.085);
+        veiculoTeste.setAtritoDisco(0.4);
         calculadora.setVeiculo(veiculoTeste);
     }
 
@@ -97,6 +98,11 @@ public class CalculadoraTest {
     @Test
     public void forcaAplicadaDiscoDianteiro(){
         assertEquals(3944.182543, calculadora.forcaAplicadaDiscoDianteiro() , 0.000001);
+    }
+    
+    @Test
+    public void forcaAplicadaPastilhaDianteira(){
+        assertEquals(1577.673017, calculadora.forcaAplicadaPastilhaDianteira() , 0.000001);
     }
     
 }
