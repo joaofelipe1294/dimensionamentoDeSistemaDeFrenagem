@@ -105,4 +105,15 @@ public class Calculadora {
         return (Math.PI * Math.pow(veiculo.getDiametroEmboloCilindroMestre() , 2)) / 4;
     }
     
+    public double relacaoPedal(){
+        double maiorPrecao;
+        if (pressaoTransmitidaAoFluidoPelaDianteira() > pressaoTransmitidaAoFluidoPelaTraseira())
+            maiorPrecao = pressaoTransmitidaAoFluidoPelaDianteira();
+        else
+            maiorPrecao = pressaoTransmitidaAoFluidoPelaTraseira();
+        double relacao = veiculo.FORCA_ERGONOMICAMENTE_PARA_FRENAGEM / (maiorPrecao * areaDoEmboloCilindroMestre());
+        //veiculo.setRelacaoTamanhoPedal(relacao);
+        return relacao;
+    }
+    
 }

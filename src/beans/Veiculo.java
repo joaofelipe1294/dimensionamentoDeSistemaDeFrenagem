@@ -33,6 +33,7 @@ public class Veiculo {
     private CoeficienteAtrito atritoSolo;
     private double relacaoTamanhoPedal;
     private double diametroEmboloCilindroMestre;
+    protected static final double FORCA_ERGONOMICAMENTE_PARA_FRENAGEM = 425;
     
     public long getId() {
         return id;

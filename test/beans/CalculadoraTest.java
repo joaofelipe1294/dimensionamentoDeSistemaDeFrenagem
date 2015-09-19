@@ -145,4 +145,9 @@ public class CalculadoraTest {
         assertEquals(0.000143, calculadora.areaDoEmboloCilindroMestre() , 0.000001);
     }
     
+    @Test
+    public void relacaoPedal(){
+        assertEquals(2.66, calculadora.relacaoPedal() , 0.01);
+    }
+    
 }
