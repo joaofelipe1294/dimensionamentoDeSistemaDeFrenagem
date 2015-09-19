@@ -27,4 +27,9 @@ public class Calculadora {
     public double pesoTotalDoSistema(){
         return massaTotalDoSistema() * veiculo.ACELERACAO_GRAVITACIONAL;
     }
+    
+    public double areaDoEmboloPincaDianteira(){
+        return (Math.pow(veiculo.getDiametroEmboloDianteiro(), 2) * Math.PI) / 4;
+    }
+    
 }
