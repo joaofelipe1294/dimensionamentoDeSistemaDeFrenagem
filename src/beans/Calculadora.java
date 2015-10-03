@@ -123,11 +123,15 @@ public class Calculadora {
             return pressaoTransmitidaAoFluidoPelaTraseira();
     }
     
-    public double distanciaFrenagemCorrigida(){
+    public double desaceleracaoSistema(){
         double momentoFrenagemCorrigida = this.forcaAplicadaDiscoDianteiro() * veiculo.getDiametroCorrigido();
         double forcaResultanteCorrigida = momentoFrenagemCorrigida / veiculo.getRaioPneuDianteiro();
         double pesoSistemaCorrigido = forcaResultanteCorrigida / veiculo.getAtritoSolo().getCoeficienteDeAtritoComSolo();
         return ((this.pesoEstaticoDianteira() - pesoSistemaCorrigido) * veiculo.ACELERACAO_GRAVITACIONAL * veiculo.getDistanciaEntreEixos()) / (veiculo.getAlturaCgEmRelacaoSuperficie() * this.pesoTotalDoSistema());
+    }
+    
+    public double distanciaFrenagemCorrigida(){
+        return (-1 * (Math.pow(veiculo.getVelocidadeMaxima(), 2))) / (2 * this.desaceleracaoSistema());
     }
     
 }

@@ -157,8 +157,13 @@ public class CalculadoraTest {
     }
     
     @Test
+    public void desaceleracaoSistema(){
+        assertEquals(-11.95, calculadora.desaceleracaoSistema(), 0.01);
+    }
+    
+    @Test
     public void distanciaFrenagemCorrigida(){
-        assertEquals(-11.95, calculadora.distanciaFrenagemCorrigida() , 0.01);
+        assertEquals(9.7, calculadora.distanciaFrenagemCorrigida() , 0.1);
     }
     
 }
