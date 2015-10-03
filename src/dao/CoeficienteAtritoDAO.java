@@ -18,7 +18,7 @@ import java.sql.ResultSet;
 public class CoeficienteAtritoDAO {
     
     public CoeficienteAtrito pegaCoeficiente(CoeficienteAtrito coeficiente) throws RuntimeException{
-        String sql = "SELECT terreno , coeficiente FROM coeficiente_de_atrito WHERE terreno = ?";
+        String sql = "SELECT terreno , coeficiente , id FROM coeficiente_de_atrito WHERE terreno = ?";
         try (Connection con = new ConnectionFactory().getConnection()){
             try (PreparedStatement stmt = con.prepareStatement(sql)){
                 stmt.setString(1, coeficiente.getTerreno());
@@ -27,6 +27,7 @@ public class CoeficienteAtritoDAO {
                     while(rs.next()){
                         coeficienteSelecionado.setTerreno(coeficiente.getTerreno());
                         coeficienteSelecionado.setCoeficienteDeAtritoComSolo(rs.getDouble("coeficiente"));
+                        coeficienteSelecionado.setId(rs.getInt("id"));
                     }
                     return coeficienteSelecionado;
                 } catch (Exception e) {

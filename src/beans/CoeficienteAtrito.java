@@ -20,8 +20,6 @@ public class CoeficienteAtrito {
 
     public CoeficienteAtrito() {
     }
-
-    
     
     public String getTerreno() {
         return terreno;
@@ -39,6 +37,14 @@ public class CoeficienteAtrito {
         this.coeficienteDeAtritoComSolo = coeficienteDeAtritoComSolo;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     @Override
     public String toString() {
         return "CoeficienteAtrito{" + "id=" + id + ", terreno=" + terreno + ", coeficienteDeAtritoComSolo=" + coeficienteDeAtritoComSolo + '}';

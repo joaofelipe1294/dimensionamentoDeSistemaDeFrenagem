@@ -219,5 +219,12 @@ public class Veiculo {
     public void setDiametroCorrigido(double diametroCorrigido) {
         this.diametroCorrigido = diametroCorrigido;
     }
+
+    @Override
+    public String toString() {
+        return "Veiculo{" + "id=" + id + ", distanciaCgDianteira=" + distanciaCgDianteira + ", distanciaCgTraseira=" + distanciaCgTraseira + ", distanciaEntreEixos=" + distanciaEntreEixos + ", massaVeiculo=" + massaVeiculo + ", massaPiloto=" + massaPiloto + ", raioPneuDianteiro=" + raioPneuDianteiro + ", raioPneuTraseiro=" + raioPneuTraseiro + ", alturaCgEmRelacaoSuperficie=" + alturaCgEmRelacaoSuperficie + ", atritoDisco=" + atritoDisco + ", raioDiscoDianteiro=" + raioDiscoDianteiro + ", raioDiscoTraseiro=" + raioDiscoTraseiro + ", diametroEmboloDianteiro=" + diametroEmboloDianteiro + ", diametroEmboloTraseiro=" + diametroEmboloTraseiro + ", numeroEmbolosDianteiro=" + numeroEmbolosDianteiro + ", numeroEmbolosTraseiro=" + numeroEmbolosTraseiro + ", distanciaFrenagem=" + distanciaFrenagem + ", velocidadeMaxima=" + velocidadeMaxima + ", tamanhoPneu=" + tamanhoPneu + ", ACELERACAO_GRAVITACIONAL=" + ACELERACAO_GRAVITACIONAL + ", atritoSolo=" + atritoSolo + ", relacaoTamanhoPedal=" + relacaoTamanhoPedal + ", diametroEmboloCilindroMestre=" + diametroEmboloCilindroMestre + ", diametroCorrigido=" + diametroCorrigido + '}';
+    }
+    
+    
     
 }
