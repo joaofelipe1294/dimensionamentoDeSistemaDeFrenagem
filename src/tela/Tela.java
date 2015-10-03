@@ -143,7 +143,7 @@ public class Tela extends javax.swing.JFrame {
 
         jButton3.setText("Novo cálculo");
 
-        labelSimulacao.setText("Diâmetro diânteiro corrigido [m] : ");
+        labelSimulacao.setText("Diâmetro corrigido [m] : ");
 
         botaoSimulacao.setText("Simular");
 
@@ -267,7 +267,6 @@ public class Tela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

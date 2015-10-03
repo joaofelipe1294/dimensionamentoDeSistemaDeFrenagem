@@ -34,6 +34,7 @@ public class Veiculo {
     private double relacaoTamanhoPedal;
     private double diametroEmboloCilindroMestre;
     protected static final double FORCA_ERGONOMICAMENTE_PARA_FRENAGEM = 425;
+    private double diametroCorrigido;
     
     public long getId() {
         return id;
@@ -209,6 +210,14 @@ public class Veiculo {
 
     public void setDiametroEmboloCilindroMestre(double diametroEmboloCilindroMestre) {
         this.diametroEmboloCilindroMestre = diametroEmboloCilindroMestre;
+    }
+
+    public double getDiametroCorrigido() {
+        return diametroCorrigido;
+    }
+
+    public void setDiametroCorrigido(double diametroCorrigido) {
+        this.diametroCorrigido = diametroCorrigido;
     }
     
 }

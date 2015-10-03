@@ -42,6 +42,7 @@ public class CalculadoraTest {
         veiculoTeste.setNumeroEmbolosTraseiro(2);
         veiculoTeste.setDiametroEmboloCilindroMestre(0.0135);
         calculadora.setVeiculo(veiculoTeste);
+        veiculoTeste.setDiametroCorrigido(0.095);
     }
 
     @Test
@@ -153,6 +154,11 @@ public class CalculadoraTest {
     @Test
     public void diametroRaioTraseiroCorrigido(){
         assertEquals(0.028841, calculadora.diametroRaioTraseiroCorrigido() , 0.00001);
+    }
+    
+    @Test
+    public void distanciaFrenagemCorrigida(){
+        assertEquals(-11.95, calculadora.distanciaFrenagemCorrigida() , 0.01);
     }
     
 }
