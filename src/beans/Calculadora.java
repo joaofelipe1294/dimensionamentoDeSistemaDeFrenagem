@@ -134,4 +134,8 @@ public class Calculadora {
         return (-1 * (Math.pow(veiculo.getVelocidadeMaxima(), 2))) / (2 * this.desaceleracaoSistema());
     }
     
+    public double coeficienteCorrelacaoEntreDistanciaFrenagem(){
+        return veiculo.getDistanciaFrenagem() / this.distanciaFrenagemCorrigida();
+    }
+    
 }

@@ -166,4 +166,9 @@ public class CalculadoraTest {
         assertEquals(9.7, calculadora.distanciaFrenagemCorrigida() , 0.1);
     }
     
+    @Test
+    public void coeficienteCorrelacaoEntreDistanciaFrenagem(){
+        assertEquals(1.22, calculadora.coeficienteCorrelacaoEntreDistanciaFrenagem() , 0.01);
+    }
+    
 }
