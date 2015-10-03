@@ -149,5 +149,10 @@ public class CalculadoraTest {
     public void relacaoPedal(){
         assertEquals(2.66, calculadora.relacaoPedal() , 0.01);
     }
+
+    @Test
+    public void diametroRaioTraseiroCorrigido(){
+        assertEquals(0.028841, calculadora.diametroRaioTraseiroCorrigido() , 0.00001);
+    }
     
 }

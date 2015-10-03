@@ -106,14 +106,21 @@ public class Calculadora {
     }
     
     public double relacaoPedal(){
-        double maiorPrecao;
-        if (pressaoTransmitidaAoFluidoPelaDianteira() > pressaoTransmitidaAoFluidoPelaTraseira())
-            maiorPrecao = pressaoTransmitidaAoFluidoPelaDianteira();
-        else
-            maiorPrecao = pressaoTransmitidaAoFluidoPelaTraseira();
-        double relacao = veiculo.FORCA_ERGONOMICAMENTE_PARA_FRENAGEM / (maiorPrecao * areaDoEmboloCilindroMestre());
-        //veiculo.setRelacaoTamanhoPedal(relacao);
+        double relacao = veiculo.FORCA_ERGONOMICAMENTE_PARA_FRENAGEM / (this.pegaMaiorPrecao() * areaDoEmboloCilindroMestre());
         return relacao;
+    }
+    
+    public double diametroRaioTraseiroCorrigido(){
+        double v1 = veiculo.getAtritoDisco() * this.momentoGeradoPelaForcaDeFrenagemTraseira();
+        double v2 = this.pegaMaiorPrecao() * this.areaDoEmboloPincaTraseira() * veiculo.getNumeroEmbolosTraseiro();
+        return v1 / v2;
+    }
+    
+    private double pegaMaiorPrecao(){
+        if (pressaoTransmitidaAoFluidoPelaDianteira() > pressaoTransmitidaAoFluidoPelaTraseira())
+            return pressaoTransmitidaAoFluidoPelaDianteira();
+        else
+            return pressaoTransmitidaAoFluidoPelaTraseira();
     }
     
 }
