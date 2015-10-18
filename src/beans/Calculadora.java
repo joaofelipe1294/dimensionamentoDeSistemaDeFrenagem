@@ -138,6 +138,24 @@ public class Calculadora {
         return momentoNovoGeradoRoda() / veiculo.getRaioPneuDianteiro();
     }
     
+    public double pesoDinamicoDianteira(){
+        return forcaResultanteNova() / veiculo.getAtritoSolo().getCoeficienteDeAtritoComSolo();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+/* --------------------------------- METODOS PRIVADOS ----------------------- */
+    
     private double pegaMaiorPrecao(){
         if (pressaoTransmitidaAoFluidoPelaDianteira() > pressaoTransmitidaAoFluidoPelaTraseira())
             return pressaoTransmitidaAoFluidoPelaDianteira();

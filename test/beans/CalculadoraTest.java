@@ -187,5 +187,10 @@ public class CalculadoraTest {
         assertEquals(1596.4, calculadora.forcaResultanteNova() , 0.1);
     }
     
+    @Test
+    public void pesoDinamicoDianteira(){
+        assertEquals(2902.65, calculadora.pesoDinamicoDianteira() , 0.01);
+    }
+    
     
 }
