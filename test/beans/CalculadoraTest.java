@@ -162,6 +162,11 @@ public class CalculadoraTest {
         assertEquals(2.93, calculadora.relacaoEntreOsDiscos() , 0.1);
     }
     
+    @Test 
+    public void raioMinimoCorrigido(){
+        assertEquals(0.1473, calculadora.raioMinimoCorrigido() , 0.0001);
+    }
+    
     @Test
     public void areaDoEmboloCilindroMestre(){
         assertEquals(0.000143, calculadora.areaDoEmboloCilindroMestre() , 0.000001);

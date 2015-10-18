@@ -117,6 +117,10 @@ public class Calculadora {
         return veiculo.getRaioDiscoDianteiro() / raioDoDiscoCorrigido();
     }
     
+    public double raioMinimoCorrigido(){
+        return 0.05 * relacaoEntreOsDiscos();
+    }
+    
     public double areaDoEmboloCilindroMestre(){
         return (Math.PI * Math.pow(veiculo.getDiametroEmboloCilindroMestre() , 2)) / 4;
     }
