@@ -113,6 +113,10 @@ public class Calculadora {
         return momentoGeradoPelaForcaDeFrenagemTraseira() / forcaAplicadaDiscoCorrigido();
     }
     
+    public double relacaoEntreOsDiscos(){
+        return veiculo.getRaioDiscoDianteiro() / raioDoDiscoCorrigido();
+    }
+    
     public double areaDoEmboloCilindroMestre(){
         return (Math.PI * Math.pow(veiculo.getDiametroEmboloCilindroMestre() , 2)) / 4;
     }

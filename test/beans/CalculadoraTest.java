@@ -158,6 +158,11 @@ public class CalculadoraTest {
     }
     
     @Test
+    public void relacaoEntreOsDiscos(){
+        assertEquals(2.93, calculadora.relacaoEntreOsDiscos() , 0.1);
+    }
+    
+    @Test
     public void areaDoEmboloCilindroMestre(){
         assertEquals(0.000143, calculadora.areaDoEmboloCilindroMestre() , 0.000001);
     }
