@@ -66,7 +66,7 @@ public class Tela extends javax.swing.JFrame {
             veiculo.setDiametroEmboloCilindroMestre(Double.parseDouble(diametroEmboloCilindroMestre.getText().replace(",", ".")));
             Calculadora calculadora = new Calculadora();
             calculadora.setVeiculo(veiculo);
-            System.out.println(calculadora.diametroRaioTraseiroCorrigido());
+            //System.out.println(calculadora.diametroRaioTraseiroCorrigido());
         }
     }
     

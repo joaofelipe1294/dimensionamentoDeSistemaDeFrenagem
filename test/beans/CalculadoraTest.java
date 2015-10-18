@@ -187,24 +187,5 @@ public class CalculadoraTest {
         assertEquals(1596.4, calculadora.forcaResultanteNova() , 0.1);
     }
     
-    @Test
-    public void diametroRaioTraseiroCorrigido(){
-        assertEquals(0.028841, calculadora.diametroRaioTraseiroCorrigido() , 0.00001);
-    }
-    
-    @Test
-    public void desaceleracaoSistema(){
-        assertEquals(-11.95, calculadora.desaceleracaoSistema(), 0.01);
-    }
-    
-    @Test
-    public void distanciaFrenagemCorrigida(){
-        assertEquals(9.7, calculadora.distanciaFrenagemCorrigida() , 0.1);
-    }
-    
-    @Test
-    public void coeficienteCorrelacaoEntreDistanciaFrenagem(){
-        assertEquals(1.22, calculadora.coeficienteCorrelacaoEntreDistanciaFrenagem() , 0.01);
-    }
     
 }
