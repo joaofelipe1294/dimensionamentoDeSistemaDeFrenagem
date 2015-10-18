@@ -194,7 +194,7 @@ public class Tela extends javax.swing.JFrame {
 
         jButton3.setText("Novo cálculo");
 
-        labelSimulacao.setText("Diâmetro corrigido [m] : ");
+        labelSimulacao.setText("Raio do disco corrigido [m] : ");
 
         botaoSimulacao.setText("Simular");
 

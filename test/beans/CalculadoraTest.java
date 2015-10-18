@@ -153,6 +153,11 @@ public class CalculadoraTest {
     }
     
     @Test
+    public void raioDoDiscoCorrigido(){
+        assertEquals(0.041, calculadora.raioDoDiscoCorrigido() , 0.001);
+    }
+    
+    @Test
     public void areaDoEmboloCilindroMestre(){
         assertEquals(0.000143, calculadora.areaDoEmboloCilindroMestre() , 0.000001);
     }

@@ -427,7 +427,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelSimulacao">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Di&#xe2;metro corrigido [m] : "/>
+        <Property name="text" type="java.lang.String" value="Raio do disco corrigido [m] : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="campoSimulacao">

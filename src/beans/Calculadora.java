@@ -109,6 +109,10 @@ public class Calculadora {
         return forcaAplicadaPastilhaFreioCorrida()/ veiculo.getAtritoDisco();
     }
     
+    public double raioDoDiscoCorrigido(){
+        return momentoGeradoPelaForcaDeFrenagemTraseira() / forcaAplicadaDiscoCorrigido();
+    }
+    
     public double areaDoEmboloCilindroMestre(){
         return (Math.PI * Math.pow(veiculo.getDiametroEmboloCilindroMestre() , 2)) / 4;
     }
