@@ -201,4 +201,9 @@ public class CalculadoraTest {
     public void distanciaDeFrenagem(){
         assertEquals(7.31, calculadora.distanciaDeFrenagem() , 0.01);
     }
+    
+    @Test
+    public void coeficienteDeMelhoria(){
+        assertEquals(0.3904, calculadora.coeficienteDeMelhoria() , 0.0001);
+    }
 }

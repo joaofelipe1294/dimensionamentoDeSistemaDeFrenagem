@@ -150,7 +150,9 @@ public class Calculadora {
         return (-1 * Math.pow(veiculo.getVelocidadeMaxima() , 2)) / (desaceleracaoCorrigida() * 2);
     }
     
-    
+    public double coeficienteDeMelhoria(){
+        return 1 - (distanciaDeFrenagem() / veiculo.getDistanciaFrenagem());
+    }
     
     
     
