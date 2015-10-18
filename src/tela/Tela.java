@@ -9,6 +9,7 @@ import beans.Calculadora;
 import beans.CoeficienteAtrito;
 import beans.Veiculo;
 import dao.CoeficienteAtritoDAO;
+import dao.RespostasDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -19,7 +20,12 @@ import javax.swing.JFrame;
  * @author joaofelipelopes
  */
 public class Tela extends javax.swing.JFrame {
-
+    private Veiculo veiculo;
+    private Calculadora calculadora;
+    private DecimalFormat dfDuasCasas;
+    private DecimalFormat dfTresCasas;
+    private DecimalFormat dfQuatroCasas;
+    
     /**
      * Creates new form Tela
      */
@@ -30,12 +36,26 @@ public class Tela extends javax.swing.JFrame {
         resposta1.setVisible(false);
         resposta2.setVisible(false);
         resposta3.setVisible(false);
-        botaoSimulacao.setVisible(false);
+        btnSimular.setVisible(false);
         campoSimulacao.setVisible(false);
         labelSimulacao.setVisible(false);
-        resultadoSimulacao.setVisible(false);
+        desaceleracao.setVisible(false);
         mensagemErro.setVisible(false);
+        veiculo = new Veiculo();
+        calculadora = new Calculadora();
         btnCalcular.addActionListener(new BotaoCalcular());
+        desaceleracao.setVisible(false);
+        distancia.setVisible(false);
+        coeficienteMelhoria.setVisible(false);
+        tempoFrenagem.setVisible(false);
+        equacao1.setVisible(false);
+        equacao2.setVisible(false);
+        dfDuasCasas = new DecimalFormat("0.00");
+        dfTresCasas = new DecimalFormat("0.000");
+        dfQuatroCasas = new DecimalFormat("0.0000");
+        btnSimular.addActionListener(new BotaoSimular());
+        btnSalvar.addActionListener(new BotaoSalvar());
+        btnNovoCalculo.addActionListener(new BotaoNovoCalculo());
     }
     
 /* ----------------------------- BTN CALCULAR ------------------------------- */
@@ -43,7 +63,6 @@ public class Tela extends javax.swing.JFrame {
     class BotaoCalcular implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            Veiculo veiculo = new Veiculo();
             veiculo.setDistanciaCgDianteira(Double.parseDouble(distanciaCGDianteira.getText().replace(",", ".")));
             veiculo.setDistanciaCgTraseira(Double.parseDouble(distanciaCGTraseiro.getText().replace(",", ".")));
             veiculo.setDistanciaEntreEixos(Double.parseDouble(distanciaEntreEixos.getText().replace(",", ".")));
@@ -65,7 +84,6 @@ public class Tela extends javax.swing.JFrame {
             CoeficienteAtritoDAO dao = new CoeficienteAtritoDAO();
             veiculo.setAtritoSolo(dao.pegaCoeficiente(coeficiente));
             veiculo.setDiametroEmboloCilindroMestre(Double.parseDouble(diametroEmboloCilindroMestre.getText().replace(",", ".")));
-            Calculadora calculadora = new Calculadora();
             calculadora.setVeiculo(veiculo);
             DecimalFormat dfDuasCasas = new DecimalFormat("0.00");
             DecimalFormat dfTresCasas = new DecimalFormat("0.000");
@@ -75,12 +93,100 @@ public class Tela extends javax.swing.JFrame {
             resposta1.setVisible(true);
             resposta2.setVisible(true);
             resposta3.setVisible(true);
-            System.out.println(calculadora.relacaoPedal());
+            labelSimulacao.setVisible(true);
+            campoSimulacao.setVisible(true);
+            btnSimular.setVisible(true);
         }
     }
     
-/* -------------------------------------------------------------------------- */
+/* --------------------------- BOTAO SIMULAR -------------------------------- */
+    
+    class BotaoSimular implements ActionListener{
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            veiculo.setRaioDiscoCorrigido(Double.parseDouble(campoSimulacao.getText().replace(",", ".")));
+            desaceleracao.setVisible(true);
+            distancia.setVisible(true);
+            coeficienteMelhoria.setVisible(true);
+            tempoFrenagem.setVisible(true);
+            equacao1.setVisible(true);
+            equacao2.setVisible(true);
+            desaceleracao.setText("Desaceleração : " + dfDuasCasas.format(calculadora.desaceleracaoCorrigida()));
+            distancia.setText("Distância : " + dfDuasCasas.format(calculadora.distanciaDeFrenagem()));
+            coeficienteMelhoria.setText("Coeficiênte de melhoria : " + dfQuatroCasas.format(calculadora.coeficienteDeMelhoria()));
+            tempoFrenagem.setText("Tempo de frenagem : " + dfDuasCasas.format(calculadora.tempoDeFrenagem()));
+            equacao1.setText("Deslocamento x Tempo : S = " + dfDuasCasas.format(veiculo.getVelocidadeMaxima()) + "t + (" + dfQuatroCasas.format(calculadora.desaceleracaoCorrigida()) + " * (t ˆ 2)) / 2");
+            equacao2.setText("Velocidade x Tempo : (V ˆ 2) = (" + dfDuasCasas.format(veiculo.getVelocidadeMaxima()) + " ˆ 2) + 2 * " + dfQuatroCasas.format(calculadora.desaceleracaoCorrigida()) + " * S");
+            
+        }
+        
+    }
+    
+/* ------------------------------ BOTAO SALVAR ------------------------------ */
+    
+    class BotaoSalvar implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            RespostasDAO dao = new RespostasDAO();
+            try {
+                dao.cadastra(calculadora);
+                mensagemErro.setText("Dados salvos");
+                mensagemErro.setVisible(true);
+                //limparTela();
+            } catch (Exception exc) {
+                mensagemErro.setText(exc.getMessage());
+                mensagemErro.setVisible(true);
+            }
+        }
+    }
+
+/* ------------------------------- BOTAO NOVO CALCULO ----------------------- */
+    
+    class BotaoNovoCalculo implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            limparTela();
+        }
+    }
+    
+    private void limparTela(){
+        distanciaCGDianteira.setText("");
+        distanciaCGTraseiro.setText("");
+        distanciaEntreEixos.setText("");
+        massaVeiculo.setText("");
+        massaPiloto.setText("");
+        alturaCGSuperficie.setText("");
+        raioPneuDianteiro.setText("");
+        raioPneuTraseiro.setText("");
+        atritoPastilhaDisco.setText("");
+        diametroEmboloDianteiro.setText("");
+        diametroEmboloTraseira.setText("");
+        raioDiscoDianteiro.setText("");
+        raioDiscoTraseiro.setText("");
+        numeroEmbolosDianteiro.setText("");
+        numeroEmbolosTraseiro.setText("");
+        distanciaFrenagem.setText("");
+        velocidadeMaxima.setText("");
+        diametroEmboloCilindroMestre.setText("");
+        desaceleracao.setVisible(false);
+        distancia.setVisible(false);
+        coeficienteMelhoria.setVisible(false);
+        tempoFrenagem.setVisible(false);
+        equacao1.setVisible(false);
+        equacao2.setVisible(false);
+        mensagemErro.setVisible(false);
+        resposta1.setVisible(false);
+        resposta2.setVisible(false);
+        resposta3.setVisible(false);
+        labelSimulacao.setVisible(false);
+        campoSimulacao.setVisible(false);
+        btnSimular.setVisible(false);
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,15 +229,15 @@ public class Tela extends javax.swing.JFrame {
         velocidadeMaxima = new javax.swing.JTextField();
         btnCalcular = new javax.swing.JButton();
         mensagemErro = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         resposta1 = new javax.swing.JLabel();
         resposta2 = new javax.swing.JLabel();
         resposta3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnNovoCalculo = new javax.swing.JButton();
         labelSimulacao = new javax.swing.JLabel();
         campoSimulacao = new javax.swing.JTextField();
-        botaoSimulacao = new javax.swing.JButton();
-        resultadoSimulacao = new javax.swing.JLabel();
+        btnSimular = new javax.swing.JButton();
+        desaceleracao = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         atritoPneuSolo = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
@@ -140,6 +246,11 @@ public class Tela extends javax.swing.JFrame {
         raioDiscoDianteiro = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         raioDiscoTraseiro = new javax.swing.JTextField();
+        distancia = new javax.swing.JLabel();
+        coeficienteMelhoria = new javax.swing.JLabel();
+        equacao1 = new javax.swing.JLabel();
+        tempoFrenagem = new javax.swing.JLabel();
+        equacao2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,10 +299,10 @@ public class Tela extends javax.swing.JFrame {
 
         mensagemErro.setText("Mensagem de erro");
 
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -201,13 +312,13 @@ public class Tela extends javax.swing.JFrame {
 
         resposta3.setText("resposta 3");
 
-        jButton3.setText("Novo cálculo");
+        btnNovoCalculo.setText("Novo cálculo");
 
         labelSimulacao.setText("Raio do disco corrigido [m] : ");
 
-        botaoSimulacao.setText("Simular");
+        btnSimular.setText("Simular");
 
-        resultadoSimulacao.setText("resultado simulacao");
+        desaceleracao.setText("resultado simulacao");
 
         jLabel17.setText("Coeficiênte de atrito entre o pneu e o solo : ");
 
@@ -219,120 +330,141 @@ public class Tela extends javax.swing.JFrame {
 
         jLabel20.setText("Raio do disco traseiro [m] : ");
 
+        distancia.setText("jLabel21");
+
+        coeficienteMelhoria.setText("jLabel22");
+
+        equacao1.setText("jLabel23");
+
+        tempoFrenagem.setText("jLabel24");
+
+        equacao2.setText("jLabel25");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(distanciaCGTraseiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(distanciaCGDianteira, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel14)
+                            .addGap(18, 18, 18)
+                            .addComponent(numeroEmbolosTraseiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel13)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(numeroEmbolosDianteiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addGap(18, 18, 18)
+                            .addComponent(raioDiscoTraseiro))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel19)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(raioDiscoDianteiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(diametroEmboloTraseira))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(18, 18, 18)
+                            .addComponent(diametroEmboloDianteiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(atritoPastilhaDisco))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addGap(18, 18, 18)
+                            .addComponent(raioPneuTraseiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(raioPneuDianteiro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(alturaCGSuperficie, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(massaVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                                .addComponent(distanciaEntreEixos, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(massaPiloto)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(distanciaCGTraseiro))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(distanciaCGDianteira, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel20)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(raioDiscoTraseiro))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel19)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(raioDiscoDianteiro))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(diametroEmboloTraseira))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(diametroEmboloDianteiro))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel10)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(atritoPastilhaDisco))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(raioPneuTraseiro))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(raioPneuDianteiro))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(alturaCGSuperficie, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(massaVeiculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                        .addComponent(distanciaEntreEixos, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(massaPiloto)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(18, 18, 18)
+                                .addComponent(diametroEmboloCilindroMestre, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 60, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(velocidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(distanciaFrenagem, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(18, 18, 18)
+                                .addComponent(atritoPneuSolo, 0, 238, Short.MAX_VALUE)
+                                .addGap(40, 40, 40))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel15)
-                                            .addComponent(jLabel16))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(distanciaFrenagem, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                                            .addComponent(velocidadeMaxima)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(atritoPneuSolo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel14)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel18)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnCalcular)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton3))
-                                            .addComponent(resposta2)
-                                            .addComponent(resposta3)
-                                            .addComponent(resposta1))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(mensagemErro)
-                                            .addComponent(diametroEmboloCilindroMestre, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(resposta2)
+                                    .addComponent(resposta3)
+                                    .addComponent(resposta1)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnCalcular)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnNovoCalculo)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(mensagemErro))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelSimulacao)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(campoSimulacao))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(botaoSimulacao)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(resultadoSimulacao)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(numeroEmbolosDianteiro, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                            .addComponent(numeroEmbolosTraseiro))))
-                .addGap(35, 35, 35))
+                                        .addComponent(campoSimulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSimular))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(desaceleracao)
+                                    .addComponent(equacao2)
+                                    .addComponent(btnSalvar)
+                                    .addComponent(equacao1)
+                                    .addComponent(coeficienteMelhoria)
+                                    .addComponent(tempoFrenagem)
+                                    .addComponent(distancia))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,91 +474,94 @@ public class Tela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(distanciaCGDianteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(numeroEmbolosDianteiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(distanciaCGTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(numeroEmbolosTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(distanciaEntreEixos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel15)
                     .addComponent(distanciaFrenagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(massaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(distanciaCGTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(velocidadeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(distanciaEntreEixos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel17)
+                    .addComponent(atritoPneuSolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(massaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel18)
+                    .addComponent(diametroEmboloCilindroMestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(massaPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17)
-                    .addComponent(atritoPneuSolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCalcular)
+                    .addComponent(btnNovoCalculo)
+                    .addComponent(mensagemErro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(alturaCGSuperficie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
-                    .addComponent(diametroEmboloCilindroMestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(resposta1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(raioPneuDianteiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCalcular)
-                    .addComponent(jButton3)
-                    .addComponent(mensagemErro))
+                    .addComponent(resposta2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(raioPneuTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(raioPneuTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resposta3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(atritoPastilhaDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resposta1))
+                    .addComponent(labelSimulacao)
+                    .addComponent(campoSimulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSimular))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(diametroEmboloDianteiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resposta2))
+                    .addComponent(desaceleracao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diametroEmboloTraseira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(resposta3))
-                .addGap(0, 0, 0)
+                    .addComponent(tempoFrenagem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(raioDiscoDianteiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(coeficienteMelhoria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(raioDiscoTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(distancia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(raioDiscoDianteiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel20)
-                                    .addComponent(raioDiscoTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(12, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton2)
-                                    .addComponent(botaoSimulacao)
-                                    .addComponent(resultadoSimulacao))
-                                .addGap(16, 16, 16))))
+                            .addComponent(jLabel13)
+                            .addComponent(numeroEmbolosDianteiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(numeroEmbolosTraseiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addComponent(equacao1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelSimulacao)
-                            .addComponent(campoSimulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(equacao2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalvar)))
+                .addContainerGap())
         );
 
         pack();
@@ -436,9 +571,9 @@ public class Tela extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_distanciaEntreEixosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         // TODO add your handling code here:
@@ -483,18 +618,23 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JTextField alturaCGSuperficie;
     private javax.swing.JTextField atritoPastilhaDisco;
     private javax.swing.JComboBox atritoPneuSolo;
-    private javax.swing.JButton botaoSimulacao;
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnNovoCalculo;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSimular;
     private javax.swing.JTextField campoSimulacao;
+    private javax.swing.JLabel coeficienteMelhoria;
+    private javax.swing.JLabel desaceleracao;
     private javax.swing.JTextField diametroEmboloCilindroMestre;
     private javax.swing.JTextField diametroEmboloDianteiro;
     private javax.swing.JTextField diametroEmboloTraseira;
+    private javax.swing.JLabel distancia;
     private javax.swing.JTextField distanciaCGDianteira;
     private javax.swing.JTextField distanciaCGTraseiro;
     private javax.swing.JTextField distanciaEntreEixos;
     private javax.swing.JTextField distanciaFrenagem;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel equacao1;
+    private javax.swing.JLabel equacao2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -528,7 +668,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel resposta1;
     private javax.swing.JLabel resposta2;
     private javax.swing.JLabel resposta3;
-    private javax.swing.JLabel resultadoSimulacao;
+    private javax.swing.JLabel tempoFrenagem;
     private javax.swing.JTextField velocidadeMaxima;
     // End of variables declaration//GEN-END:variables
 }
