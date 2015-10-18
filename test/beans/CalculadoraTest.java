@@ -34,11 +34,11 @@ public class CalculadoraTest {
         veiculoTeste.setAlturaCgEmRelacaoSuperficie(0.6);
         veiculoTeste.setAtritoSolo(new CoeficienteAtritoDAO().pegaCoeficiente(new CoeficienteAtrito("Terra úmida")));
         veiculoTeste.setRaioPneuDianteiro(0.28);
-        veiculoTeste.setRaioDiscoDianteiro(0.085);
+        veiculoTeste.setRaioDiscoDianteiro(0.12); 
         veiculoTeste.setAtritoDisco(0.4);
         veiculoTeste.setNumeroEmbolosDianteiro(2);
         veiculoTeste.setRaioPneuTraseiro(0.27);
-        veiculoTeste.setRaioDiscoTraseiro(0.11);
+        veiculoTeste.setRaioDiscoTraseiro(0.18);   
         veiculoTeste.setNumeroEmbolosTraseiro(2);
         veiculoTeste.setDiametroEmboloCilindroMestre(0.0135);
         calculadora.setVeiculo(veiculoTeste);
@@ -103,17 +103,17 @@ public class CalculadoraTest {
     
     @Test
     public void forcaAplicadaDiscoDianteiro(){
-        assertEquals(3944.182543, calculadora.forcaAplicadaDiscoDianteiro() , 0.000001);
+        assertEquals(2793.8, calculadora.forcaAplicadaDiscoDianteiro() , 0.1);
     }
     
     @Test
     public void forcaAplicadaPastilhaDianteira(){
-        assertEquals(1577.673017, calculadora.forcaAplicadaPastilhaDianteira() , 0.000001);
+        assertEquals(1117.52, calculadora.forcaAplicadaPastilhaDianteira() , 0.01);
     }
     
     @Test
     public void pressaoTransmitidaAoFluidoPelaDianteira(){
-        assertEquals(1115975.374, calculadora.pressaoTransmitidaAoFluidoPelaDianteira() , 0.001);
+        assertEquals(790482.5569, calculadora.pressaoTransmitidaAoFluidoPelaDianteira() , 0.0001);
     }
     
     @Test
@@ -128,17 +128,23 @@ public class CalculadoraTest {
     
     @Test
     public void forcaAplicadaDiscoTraseiro(){
-        assertEquals(1034.121774, calculadora.forcaAplicadaDiscoTraseiro() , 0.000001);
+        assertEquals(631.961, calculadora.forcaAplicadaDiscoTraseiro() , 0.01);
     }
     
     @Test
     public void forcaAplicadaPastilhaTraseira(){
-        assertEquals(413.6487097, calculadora.forcaAplicadaPastilhaTraseira() , 0.0000001);
+        assertEquals(252.784 , calculadora.forcaAplicadaPastilhaTraseira() , 0.01);
     }
     
     @Test
     public void pressaoTransmitidaAoFluidoPelaTraseira(){
-        assertEquals(292596.6082, calculadora.pressaoTransmitidaAoFluidoPelaTraseira() , 0.0001);
+        assertEquals(178809.03, calculadora.pressaoTransmitidaAoFluidoPelaTraseira() , 0.01);
+    }
+    
+    //novo calculo
+    @Test
+    public void forcaAplicadaPastilhaFreioCorrida(){
+        assertEquals(1117.52, calculadora.forcaAplicadaPastilhaFreioCorrida() , 0.01);
     }
     
     @Test

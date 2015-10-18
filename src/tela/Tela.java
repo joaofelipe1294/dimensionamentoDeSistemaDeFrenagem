@@ -5,6 +5,7 @@
  */
 package tela;
 
+import beans.Calculadora;
 import beans.CoeficienteAtrito;
 import beans.Veiculo;
 import dao.CoeficienteAtritoDAO;
@@ -63,7 +64,9 @@ public class Tela extends javax.swing.JFrame {
             CoeficienteAtritoDAO dao = new CoeficienteAtritoDAO();
             veiculo.setAtritoSolo(dao.pegaCoeficiente(coeficiente));
             veiculo.setDiametroEmboloCilindroMestre(Double.parseDouble(diametroEmboloCilindroMestre.getText().replace(",", ".")));
-            System.out.println(veiculo);
+            Calculadora calculadora = new Calculadora();
+            calculadora.setVeiculo(veiculo);
+            System.out.println(calculadora.diametroRaioTraseiroCorrigido());
         }
     }
     
