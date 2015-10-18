@@ -162,13 +162,6 @@ public class Calculadora {
         return ((-1 * b) + Math.sqrt(delta)) / (2 * a);
     }
     
-    
-    
-    
-    
-    
-    
-    
 /* --------------------------------- METODOS PRIVADOS ----------------------- */
     
     private double pegaMaiorPrecao(){
