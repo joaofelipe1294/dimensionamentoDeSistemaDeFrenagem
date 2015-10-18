@@ -34,7 +34,7 @@ public class Veiculo {
     private double relacaoTamanhoPedal;
     private double diametroEmboloCilindroMestre;
     protected static final double FORCA_ERGONOMICAMENTE_PARA_FRENAGEM = 425;
-    private double diametroCorrigido;
+    private double raioDiscoCorrigido;
     
     public long getId() {
         return id;
@@ -212,19 +212,17 @@ public class Veiculo {
         this.diametroEmboloCilindroMestre = diametroEmboloCilindroMestre;
     }
 
-    public double getDiametroCorrigido() {
-        return diametroCorrigido;
+    public double getRaioDiscoCorrigido() {
+        return raioDiscoCorrigido;
     }
 
-    public void setDiametroCorrigido(double diametroCorrigido) {
-        this.diametroCorrigido = diametroCorrigido;
+    public void setRaioDiscoCorrigido(double raioDiscoCorrigido) {
+        this.raioDiscoCorrigido = raioDiscoCorrigido;
     }
 
     @Override
     public String toString() {
-        return "Veiculo{" + "id=" + id + ", distanciaCgDianteira=" + distanciaCgDianteira + ", distanciaCgTraseira=" + distanciaCgTraseira + ", distanciaEntreEixos=" + distanciaEntreEixos + ", massaVeiculo=" + massaVeiculo + ", massaPiloto=" + massaPiloto + ", raioPneuDianteiro=" + raioPneuDianteiro + ", raioPneuTraseiro=" + raioPneuTraseiro + ", alturaCgEmRelacaoSuperficie=" + alturaCgEmRelacaoSuperficie + ", atritoDisco=" + atritoDisco + ", raioDiscoDianteiro=" + raioDiscoDianteiro + ", raioDiscoTraseiro=" + raioDiscoTraseiro + ", diametroEmboloDianteiro=" + diametroEmboloDianteiro + ", diametroEmboloTraseiro=" + diametroEmboloTraseiro + ", numeroEmbolosDianteiro=" + numeroEmbolosDianteiro + ", numeroEmbolosTraseiro=" + numeroEmbolosTraseiro + ", distanciaFrenagem=" + distanciaFrenagem + ", velocidadeMaxima=" + velocidadeMaxima + ", tamanhoPneu=" + tamanhoPneu + ", ACELERACAO_GRAVITACIONAL=" + ACELERACAO_GRAVITACIONAL + ", atritoSolo=" + atritoSolo + ", relacaoTamanhoPedal=" + relacaoTamanhoPedal + ", diametroEmboloCilindroMestre=" + diametroEmboloCilindroMestre + ", diametroCorrigido=" + diametroCorrigido + '}';
+        return "Veiculo{" + "id=" + id + ", distanciaCgDianteira=" + distanciaCgDianteira + ", distanciaCgTraseira=" + distanciaCgTraseira + ", distanciaEntreEixos=" + distanciaEntreEixos + ", massaVeiculo=" + massaVeiculo + ", massaPiloto=" + massaPiloto + ", raioPneuDianteiro=" + raioPneuDianteiro + ", raioPneuTraseiro=" + raioPneuTraseiro + ", alturaCgEmRelacaoSuperficie=" + alturaCgEmRelacaoSuperficie + ", atritoDisco=" + atritoDisco + ", raioDiscoDianteiro=" + raioDiscoDianteiro + ", raioDiscoTraseiro=" + raioDiscoTraseiro + ", diametroEmboloDianteiro=" + diametroEmboloDianteiro + ", diametroEmboloTraseiro=" + diametroEmboloTraseiro + ", numeroEmbolosDianteiro=" + numeroEmbolosDianteiro + ", numeroEmbolosTraseiro=" + numeroEmbolosTraseiro + ", distanciaFrenagem=" + distanciaFrenagem + ", velocidadeMaxima=" + velocidadeMaxima + ", tamanhoPneu=" + tamanhoPneu + ", ACELERACAO_GRAVITACIONAL=" + ACELERACAO_GRAVITACIONAL + ", atritoSolo=" + atritoSolo + ", relacaoTamanhoPedal=" + relacaoTamanhoPedal + ", diametroEmboloCilindroMestre=" + diametroEmboloCilindroMestre + ", raioDiscoCorrigido=" + raioDiscoCorrigido + '}';
     }
-    
-    
     
 }

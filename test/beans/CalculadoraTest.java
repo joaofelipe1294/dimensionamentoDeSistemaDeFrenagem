@@ -42,7 +42,7 @@ public class CalculadoraTest {
         veiculoTeste.setNumeroEmbolosTraseiro(2);
         veiculoTeste.setDiametroEmboloCilindroMestre(0.0135);
         calculadora.setVeiculo(veiculoTeste);
-        veiculoTeste.setDiametroCorrigido(0.095);
+        veiculoTeste.setRaioDiscoCorrigido(0.16);
     }
 
     @Test
@@ -177,6 +177,11 @@ public class CalculadoraTest {
         assertEquals(3.7561, calculadora.relacaoPedal() , 0.0001);
     }
 
+    @Test
+    public void momentoNovoGeradoRoda(){
+        assertEquals(447.008 , calculadora.momentoNovoGeradoRoda(), 0.001);
+    }
+    
     @Test
     public void diametroRaioTraseiroCorrigido(){
         assertEquals(0.028841, calculadora.diametroRaioTraseiroCorrigido() , 0.00001);
