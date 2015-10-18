@@ -192,5 +192,10 @@ public class CalculadoraTest {
         assertEquals(2902.65, calculadora.pesoDinamicoDianteira() , 0.01);
     }
     
+    @Test
+    public void desaceleracaoCorrigida(){
+        assertEquals(-16.0025, calculadora.desaceleracaoCorrigida() , 0.0001);
+    }
+    
     
 }

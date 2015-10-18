@@ -142,6 +142,9 @@ public class Calculadora {
         return forcaResultanteNova() / veiculo.getAtritoSolo().getCoeficienteDeAtritoComSolo();
     }
     
+    public double desaceleracaoCorrigida(){
+        return ((pesoEstaticoDianteira() - pesoDinamicoDianteira()) * veiculo.ACELERACAO_GRAVITACIONAL * veiculo.getDistanciaEntreEixos()) / (pesoTotalDoSistema() * veiculo.getAlturaCgEmRelacaoSuperficie());
+    }
     
     
     
