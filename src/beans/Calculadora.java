@@ -134,6 +134,10 @@ public class Calculadora {
         return forcaAplicadaDiscoDianteiro() * veiculo.getRaioDiscoCorrigido();
     }
     
+    public double forcaResultanteNova(){
+        return momentoNovoGeradoRoda() / veiculo.getRaioPneuDianteiro();
+    }
+    
     public double diametroRaioTraseiroCorrigido(){
         double v1 = veiculo.getAtritoDisco() * this.momentoGeradoPelaForcaDeFrenagemTraseira();
         double v2 = this.pegaMaiorPrecao() * this.areaDoEmboloPincaTraseira() * veiculo.getNumeroEmbolosTraseiro();

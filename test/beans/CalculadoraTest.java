@@ -183,6 +183,11 @@ public class CalculadoraTest {
     }
     
     @Test
+    public void forcaResultanteNova(){
+        assertEquals(1596.4, calculadora.forcaResultanteNova() , 0.1);
+    }
+    
+    @Test
     public void diametroRaioTraseiroCorrigido(){
         assertEquals(0.028841, calculadora.diametroRaioTraseiroCorrigido() , 0.00001);
     }
