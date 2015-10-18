@@ -146,7 +146,9 @@ public class Calculadora {
         return ((pesoEstaticoDianteira() - pesoDinamicoDianteira()) * veiculo.ACELERACAO_GRAVITACIONAL * veiculo.getDistanciaEntreEixos()) / (pesoTotalDoSistema() * veiculo.getAlturaCgEmRelacaoSuperficie());
     }
     
-    
+    public double distanciaDeFrenagem(){
+        return (-1 * Math.pow(veiculo.getVelocidadeMaxima() , 2)) / (desaceleracaoCorrigida() * 2);
+    }
     
     
     
