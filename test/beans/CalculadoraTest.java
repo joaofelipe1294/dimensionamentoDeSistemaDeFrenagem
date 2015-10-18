@@ -174,7 +174,7 @@ public class CalculadoraTest {
     
     @Test
     public void relacaoPedal(){
-        assertEquals(2.66, calculadora.relacaoPedal() , 0.01);
+        assertEquals(3.7561, calculadora.relacaoPedal() , 0.0001);
     }
 
     @Test
