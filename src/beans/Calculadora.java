@@ -105,6 +105,10 @@ public class Calculadora {
         return pegaMaiorPrecao() * areaDoEmboloPincaTraseira() * veiculo.getNumeroEmbolosTraseiro();
     }
     
+    public double forcaAplicadaDiscoCorrigido(){
+        return forcaAplicadaPastilhaFreioCorrida()/ veiculo.getAtritoDisco();
+    }
+    
     public double areaDoEmboloCilindroMestre(){
         return (Math.PI * Math.pow(veiculo.getDiametroEmboloCilindroMestre() , 2)) / 4;
     }

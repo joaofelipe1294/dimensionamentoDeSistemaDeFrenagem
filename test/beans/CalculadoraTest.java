@@ -148,6 +148,11 @@ public class CalculadoraTest {
     }
     
     @Test
+    public void forcaAplicadaDiscoCorrigido(){
+        assertEquals(2793.8, calculadora.forcaAplicadaDiscoCorrigido() , 0.1);
+    }
+    
+    @Test
     public void areaDoEmboloCilindroMestre(){
         assertEquals(0.000143, calculadora.areaDoEmboloCilindroMestre() , 0.000001);
     }
