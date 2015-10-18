@@ -154,6 +154,14 @@ public class Calculadora {
         return 1 - (distanciaDeFrenagem() / veiculo.getDistanciaFrenagem());
     }
     
+    public double tempoDeFrenagem(){
+        double a = desaceleracaoCorrigida() / 2;
+        double b = veiculo.getVelocidadeMaxima();
+        double c = -1 * distanciaDeFrenagem();
+        double delta = Math.pow( b , 2) - (4 * a * c);
+        return ((-1 * b) + Math.sqrt(delta)) / (2 * a);
+    }
+    
     
     
     

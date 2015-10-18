@@ -206,4 +206,9 @@ public class CalculadoraTest {
     public void coeficienteDeMelhoria(){
         assertEquals(0.3904, calculadora.coeficienteDeMelhoria() , 0.0001);
     }
+    
+    @Test
+    public void tempoDeFrenagem(){
+        assertEquals(0.9561, calculadora.tempoDeFrenagem() , 0.0001);
+    }
 }
